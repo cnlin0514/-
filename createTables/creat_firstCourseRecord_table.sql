@@ -15,5 +15,5 @@ CREATE TABLE IF NOT EXISTS `first_course_record`(
 	`treatment_plan` VARCHAR(2000),
 	`admission_id` int(15) UNSIGNED,
   PRIMARY KEY(`id`),
-	FOREIGN KEY (`admission_id`) REFERENCES hospital_admission_record(`id`)
+	FOREIGN KEY (`admission_id`) REFERENCES hospital_admission_record(`id`) on DELETE SET NULL
 ) ENGINE = INNODB;
