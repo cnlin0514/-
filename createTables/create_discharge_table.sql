@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS `hospital_discharge_certificate`(
 	`discharge_medicine` VARCHAR(500),
 	`attention` VARCHAR(1000),
 	`admission_id` INT (15) UNSIGNED,
-  PRIMARY KEY(`id`),
-	FOREIGN KEY (`admission_id`) REFERENCES hospital_admission_record(`id`)
+  PRIMARY KEY(`id`), 
+	FOREIGN KEY (`admission_id`) REFERENCES hospital_admission_record(`id`) on DELETE SET NULL
 ) ENGINE = INNODB;

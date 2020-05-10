@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS `disease_course_record`(
 	`check_record` MEDIUMTEXT,
 	`admission_id` int(15) UNSIGNED,
   PRIMARY KEY(`id`),
-	FOREIGN KEY (`admission_id`) REFERENCES hospital_admission_record(`id`)
+	FOREIGN KEY (`admission_id`) REFERENCES hospital_admission_record(`id`) ON DELETE SET NULL 
 ) ENGINE = INNODB;
