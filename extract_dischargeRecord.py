@@ -1,5 +1,9 @@
-# @time： 2020/5/11 16:06
-# @description：拉取出院记录
+'''
+@time： 2020/5/11 16:06
+# @description：拉取出院记录，出院记录位于出院证明书和病历评分表之间；
+# error原因：无出院记录；或者出院记录在病历评分表之后
+'''
+
 
 
 
@@ -133,8 +137,6 @@ def extract_dischargeRecord(file):
         #
         # chiefandhistory = PyQuery(wushi[0])
 
-        # print(wushi)
-        #
         if wushi:
             chiefandhistory = PyQuery(wushi[0])
             p1 = r'\n|:|：| |\t'
@@ -142,7 +144,7 @@ def extract_dischargeRecord(file):
             # 去除住院病人授权委托书
             # print(chiefandhistory_clean)
 
-            weituo = '(?<=出院记录).*?(?=病历评分表)'
+            weituo = r'(?<=出院记录).*?(?=病历评分表)'
             chiefandhistory_text = regex.search(weituo, chiefandhistory_clean)
             if chiefandhistory_text[0]:
                 # 拉取入院日期
