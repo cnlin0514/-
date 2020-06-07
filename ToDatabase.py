@@ -42,10 +42,23 @@ def insert_database(index, list):
 
     # 出院证明书所有字段入库
 
+    # effect_row1 = cursor.execute(
+    #     'INSERT INTO `hospital_discharge_certificate` (`his`,`bah`,`blh`,`name`,`department`,`admission_time`,`discharge_time`,'
+    #     '`discharge_diagnosis`,`inhospital_course`,`discharge_medicine`,`attention`) '
+    #     'VALUES (%s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',
+    #     (list[0], list[1], list[2], list[3], list[4], list[5], list[6], list[7], list[8], list[9], list[10]))
+
+    #首次病程记录所有字段入库
+
     effect_row1 = cursor.execute(
-        'INSERT INTO `hospital_discharge_certificate` (`his`,`bah`,`blh`,`name`,`department`,`admission_time`,`discharge_time`,'
-        '`discharge_diagnosis`,`inhospital_course`,`discharge_medicine`,`attention`) '
-        'VALUES (%s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',
-        (list[0], list[1], list[2], list[3], list[4], list[5], list[6], list[7], list[8], list[9], list[10]))
+    'INSERT INTO `first_course_record` (`his`,`bah`,`blh`,`name`,`medical_record_characteristics`,`medical_history_introduction`,`chinese_medicine_diagnosis`,'
+    '`physical_examinationl`,`auxiliary_examination`,`primary_diagnosis`,`chinese_medicine_evidence`,`western_medicine_evidence`,`differential_diagnosis`,`treatment_plan`) '
+    'VALUES (%s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+    (list[0], list[1], list[2], list[3], list[4], list[5], list[6], list[7], list[8], list[9], list[10], list[11], list[12], list[13]))
+
+
+
+
+
 
     connection.commit()
