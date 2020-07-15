@@ -15,41 +15,52 @@ import regex
 import pymysql
 from traverse import gethtml, getxml
 from xmltohtml import xmltohtml
-from extract_text import extract_text
+from extract_admissionRecord import extract_text
+from extract_dischargeRecord import extract_dischargeRecord
+from extrac_dischargeRecord_2 import extract_dischargeRecord2
+from extract_firstCourseRecord import extract_firstCourseRecord
+from extract_dischargeCertificate import extract_dischargeCertificate
 from ToDatabase import *
 from tqdm import tqdm
-# import csv
-# import numpy as np
-# import pandas as ps
+
 
 # xml files dir
-input_dir = "F:/毕业设计/2.病历分割提取/脚本/Data1"
-# desitination html path dir
+input_dir = "G:\毕业设计\中医药大学数据9068\Data1"
 destination_dir = "./Data2"
-# error file dir
-error_dir = "./Data3"
+# destination_dir = "./data"
+# destination_dir ="./Data4"
+error_dir = "./首次病程记录error"
 index = 0
 
 file_xml = getxml(input_dir)
 
-#转义
-for line in file_xml:
-    xmltohtml(line,destination_dir)
+#转义初次使用时，讲源数据xml格式中的转义字符转化为html格式
+# for line in file_xml:
+#     xmltohtml(line,destination_dir)
 
 file_html = gethtml(destination_dir)
 
 i = 0
 for file in tqdm(file_html):
-    item_list = extract_text(file)
+    # item_list = extract_text(file)#入院记录
+    # item_list = extract_dischargeRecord2(file)#出院记录
+    # item_list = extract_dischargeCertificate(file)#出院证明书
+    item_list = extract_firstCourseRecord(file)  #首次病程记录
+
+
     index = index + 1
 
-    # insert_database(index, item_list)
 
     try:
         insert_database(index, item_list)
     except Exception as e:
         i = i + 1
-        print('insert error : HIS id is ' + item_list[1])
+        # print('insert error : HIS id is ' + item_list[6])#入院记录
+        # print('insert error : HIS id is ' + item_list[9])#出院记录
+        # print('insert error : HIS id is ' + item_list[0])#出院证明书
+        print('insert error : HIS id is ' + item_list[0])#首次病程记录
+
+
         print(e)
         
         # save files with error to the error_dir,将错误文件复制到error_dir
@@ -65,7 +76,7 @@ for file in tqdm(file_html):
 print('error num : ' + str(i))
 connection.close()
 
-
+    #将结果保存在本地
     # with open('result.output','a+',encoding='utf-8') as f:
     #     output = extract_text(file)
     #     for item in output:
